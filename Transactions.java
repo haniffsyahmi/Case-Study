@@ -1,7 +1,4 @@
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-public class Transaction {
     private double balance;
     private double payment;
     private Date date;
@@ -50,13 +47,3 @@ public class Transaction {
                 ", Payment=" + payment +
                 ", Remaining Amount=" + remainingAmount;
     }
-
-    public static void main(String[] args) {
-        Transaction transaction = new Transaction(100.0, 50.0);
-        System.out.println("Balance: " + transaction.getBalance());
-        System.out.println("Payment: " + transaction.getPayment());
-        System.out.println("Remaining Amount: " + transaction.getRemainingAmount());
-        transaction.setBalance(80.0);
-        System.out.println("Updated Balance: " + transaction.getBalance());
-    }
-}
