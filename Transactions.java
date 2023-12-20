@@ -6,12 +6,18 @@ public class Transactions{
     private double payment;
     private Date transactiondate;
     private double remainingAmount;
+    private static List<Transactions> monthlyTransactions = new ArrayList<>();
 
     public Transaction(double balance, double payment) {
         this.balance = balance;
         this.payment = payment;
         this.transactiondate = new Date();
         this.remainingAmount = balance - payment;
+        monthlyTransactions.add(this);
+    }
+    
+    public static List<Transactions> getMonthlyTransactions() {
+        return monthlyTransactions;
     }
 
     public double getBalance() {
@@ -51,4 +57,5 @@ public class Transactions{
                 ", Payment=" + payment +
                 ", Remaining Amount=" + remainingAmount;
     }
+    
 }
