@@ -47,6 +47,11 @@ public class Transactions{
         } else {
             return 0;
         }
+
+    public static void clearMonthlyTransactions() {
+        monthlyTransactions.clear();
+    }
+
     }
 
     @Override
