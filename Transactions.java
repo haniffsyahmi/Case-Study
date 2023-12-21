@@ -1,42 +1,37 @@
 import java.util.Date;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
-public class Transactions{
-    private double balance;
-    private double payment;
-    private Date transactiondate;
-    private double remainingAmount;
-    private static List<Transactions> monthlyTransactions = new ArrayList<>();
 
-    public Transaction(double balance, double payment) {
+public class Transactions{
+    private double balance;                             // 2. Initialize variables by Q  
+    private double payment;
+    private Date transactionDate;
+    private double remainingAmount;
+
+    public Transaction(double balance, double payment) {    // 2. Constructor by Q
         this.balance = balance;
         this.payment = payment;
-        this.transactiondate = new Date();
+        this.transactionDate = new Date();
         this.remainingAmount = balance - payment;
-        monthlyTransactions.add(this);
-    }
-    
-    public static List<Transactions> getMonthlyTransactions() {
-        return monthlyTransactions;
     }
 
-    public double getBalance() {
+    public double getBalance() {                        // 2. Get balance by Q
         return balance;
     }
     
-    public double getPayment() {
+    public double getPayment() {                        // 2. Get payment by Q
         return payment;
     }
 
-    public double getRemainingAmount() {
+    public double getRemainingAmount() {                // 2. Get remaining amount by Q
         return remainingAmount;
     }
 
-    public Date gettransactionDate() {
-        return transactiondate;
+    public Date gettransactionDate() {                  // 2. Get transaction date by Q
+        return transactionDate;
     }
 
-    public double calculateDiscount() {
+    public double calculateDiscount() {                 // 3. Calculate discount by Syahmi
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(transactionDate);
 
@@ -47,20 +42,5 @@ public class Transactions{
         } else {
             return 0;
         }
-
-    public static void clearMonthlyTransactions() {
-        monthlyTransactions.clear();
     }
-
-    }
-
-    @Override
-    public String toString() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return "Transaction on " + dateFormat.format(transactiondate) +
-                ": Balance=" + balance +
-                ", Payment=" + payment +
-                ", Remaining Amount=" + remainingAmount;
-    }
-    
 }
