@@ -28,6 +28,7 @@ public class Main {
                     displayMonthlyTransactions(myWallet);
                     break;
                 case 4:
+                    System.out.println();
                     System.out.println("Exiting the e-Wallet. Thank you!");
                     break;
                 default:
@@ -46,28 +47,86 @@ public class Main {
 
         Transactions.TopUpMethod topUpMethod = selectTopUpMethod(scanner);
 
-        Transactions newTransaction = new Transactions(amount, 0, topUpMethod);
-        wallet.addTransaction(newTransaction);
-
-        System.out.println("e-Wallet topped up successfully.");
-
-        if (topUpMethod == Transactions.TopUpMethod.CREDIT_CARD) {
-            System.out.println("You received RM 0.50 cashback!");
+        switch (topUpMethod) {
+            case CREDIT_CARD:
+                topUpCreditCard(amount, wallet);
+                break;
+            case DEBIT_CARD:
+                topUpDebitCard(amount, wallet);
+                break;
+            case ONLINE_BANKING:
+                topUpOnlineBanking(amount, wallet);
+                break;
+            case CASH:
+                topUpCash(amount, wallet);
+                break;
+            default:
+                System.out.println("Invalid top-up method.");
+                break;
         }
     }
 
     private static Transactions.TopUpMethod selectTopUpMethod(Scanner scanner) {
-        System.out.print("Select top-up method (CREDIT_CARD, DEBIT_CARD, ONLINE_BANKING, CASH): ");
-        return Transactions.TopUpMethod.valueOf(scanner.next());
+        System.out.println("Select top-up method:");
+        System.out.println("1. Credit Card");
+        System.out.println("2. Debit Card");
+        System.out.println("3. Online Banking");
+        System.out.println("4. Cash");
+
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                return Transactions.TopUpMethod.CREDIT_CARD;
+            case 2:
+                return Transactions.TopUpMethod.DEBIT_CARD;
+            case 3:
+                return Transactions.TopUpMethod.ONLINE_BANKING;
+            case 4:
+                return Transactions.TopUpMethod.CASH;
+            default:
+                System.out.println("Invalid choice. Defaulting to Cash.");
+                return Transactions.TopUpMethod.CASH;
+        }
+    }
+
+    private static void topUpCreditCard(double amount, eWallet wallet) {
+        Transactions newTransaction = new Transactions(amount, 0, Transactions.TopUpMethod.CREDIT_CARD);
+        wallet.addTransaction(newTransaction);
+        System.out.println();
+        System.out.println("e-Wallet topped up successfully.");
+        System.out.println("You received RM 0.50 cashback!");
+    }
+
+    private static void topUpDebitCard(double amount, eWallet wallet) {
+        Transactions newTransaction = new Transactions(amount, 0, Transactions.TopUpMethod.DEBIT_CARD);
+        wallet.addTransaction(newTransaction);
+        System.out.println();
+        System.out.println("e-Wallet topped up successfully.");
+    }
+
+    private static void topUpOnlineBanking(double amount, eWallet wallet) {
+        Transactions newTransaction = new Transactions(amount, 0, Transactions.TopUpMethod.ONLINE_BANKING);
+        wallet.addTransaction(newTransaction);
+        System.out.println();
+        System.out.println("e-Wallet topped up successfully.");
+    }
+
+    private static void topUpCash(double amount, eWallet wallet) {
+        Transactions newTransaction = new Transactions(amount, 0, Transactions.TopUpMethod.CASH);
+        wallet.addTransaction(newTransaction);
+        System.out.println();
+        System.out.println("e-Wallet topped up successfully.");
     }
 
     private static void makePayment(Scanner scanner, eWallet wallet) {
         System.out.print("Enter the amount to pay: ");
         double amount = scanner.nextDouble();
 
-        Transactions newTransaction = new Transactions(0, amount, false);
+        Transactions newTransaction = new Transactions(0, amount, Transactions.TopUpMethod.CASH);
         wallet.addTransaction(newTransaction);
 
+        System.out.println();
         System.out.println("Payment made successfully.");
     }
 
