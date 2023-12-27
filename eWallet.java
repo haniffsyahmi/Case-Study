@@ -26,7 +26,7 @@ public class eWallet {
         int currentMonth = calendar.get(Calendar.MONTH);
 
         for (Transactions transaction : transactions) {
-            calendar.setTime(transaction.gettransactionDate());
+            calendar.setTime(transaction.getTransactionDate());
             if (calendar.get(Calendar.MONTH) == currentMonth) {
                 monthlyTransactions.add(transaction);
             }
