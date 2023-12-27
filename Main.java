@@ -139,11 +139,9 @@ public class Main {
     }
 
     private static void displayAndCalculateEverything(eWallet wallet) {
-        double remainingAmount = wallet.getTotalBalance();
 
         System.out.println("\nMonthly Transactions:");
         for (Transactions transaction : wallet.getMonthlyTransactions()) {
-            remainingAmount -= transaction.getPayment();
             System.out.println(transaction);
         }
 
