@@ -19,10 +19,9 @@ public class Transactions {
         this.transactionDate = new Date();
         this.remainingAmount = balance - payment;
         this.topUpMethod = topUpMethod;
-
-        // Apply cashback for Credit Card top-ups
+        
         if (topUpMethod == TopUpMethod.CREDIT_CARD) {
-            this.remainingAmount += 0.50; // RM 0.50 cashback
+            this.remainingAmount += 0.50;
         }
     }
 
