@@ -31,6 +31,15 @@ public class Transactions{
         return transactionDate;
     }
 
+    public void topUp(double amount) {
+        balance += amount;
+    }
+
+    public void processTopUpWithCashback(double amount, double cashback) {
+        topUp(amount);
+        balance += cashback;
+    }
+
     public double calculateDiscount() {                 // 3. Calculate discount by Syahmi
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(transactionDate);
