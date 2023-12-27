@@ -2,17 +2,28 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class eWallet {
-    private ArrayList<Transactions> transactions;           // 1. Create arraylist by Syahmi
+    private ArrayList<Transactions> transactions;           // initialize ArrayList by Syahmi
+    private double totalBalance;
 
-    public eWallet() {                                      // 1. Constructor by Syahmi
+    public eWallet() {                            // constructor method by Syahmi
         transactions = new ArrayList<Transactions>();
+        totalBalance = 0;
     }
 
-    public void addTransaction(Transactions transaction) {  // 1. Add transaction by Syahmi
+    public void addTransaction(Transactions transaction) {          // add transaction method by Syahmi
         transactions.add(transaction);
+        updateTotalBalance(transaction.getRemainingAmount());
     }
 
-    public double CalculateTotalDiscount() {                // 5. Calculate total discount by Qays
+    private void updateTotalBalance(double remainingAmount) {       // update total balance method by Qays
+        totalBalance += remainingAmount;
+    }
+
+    public double getTotalBalance() {               // get total balance method by Qays
+        return totalBalance;
+    }
+
+    public double calculateTotalDiscount() {        // calculate total discount method by Qays
         double totalDiscount = 0;
         for (Transactions transaction : transactions) {
             totalDiscount += transaction.calculateDiscount();
@@ -20,7 +31,7 @@ public class eWallet {
         return totalDiscount;
     }
 
-    public ArrayList<Transactions> getMonthlyTransactions() {  // 5. Get monthly transactions by Qays
+    public ArrayList<Transactions> getMonthlyTransactions() {           // get monthly transactions method by Qays
         ArrayList<Transactions> monthlyTransactions = new ArrayList<Transactions>();
         Calendar calendar = Calendar.getInstance();
         int currentMonth = calendar.get(Calendar.MONTH);
@@ -34,5 +45,4 @@ public class eWallet {
 
         return monthlyTransactions;
     }
-
 }
