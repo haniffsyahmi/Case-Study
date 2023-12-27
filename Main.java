@@ -11,11 +11,12 @@ public class Main {
             System.out.println("\ne-Wallet Menu:");
             System.out.println("1. Top Up e-Wallet");
             System.out.println("2. Make Payment");
-            System.out.println("3. Display Monthly Transactions");
+            System.out.println("3. Display monthly transactions");
             System.out.println("4. Exit");
 
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
+            System.out.println();
 
             switch (choice) {
                 case 1:
@@ -25,10 +26,9 @@ public class Main {
                     makePayment(scanner, myWallet);
                     break;
                 case 3:
-                    displayMonthlyTransactions(myWallet);
+                    displayAndCalculateEverything(myWallet);
                     break;
                 case 4:
-                    System.out.println();
                     System.out.println("Exiting the e-Wallet. Thank you!");
                     break;
                 default:
@@ -37,33 +37,37 @@ public class Main {
 
         } while (choice != 4);
 
-        // Close the scanner
         scanner.close();
     }
 
     private static void topUpEWallet(Scanner scanner, eWallet wallet) {
         System.out.print("Enter the amount to top up: ");
         double amount = scanner.nextDouble();
+        System.out.println();
 
-        Transactions.TopUpMethod topUpMethod = selectTopUpMethod(scanner);
+        Transactions.TopUpMethod topUpMethod;
 
-        switch (topUpMethod) {
-            case CREDIT_CARD:
-                topUpCreditCard(amount, wallet);
-                break;
-            case DEBIT_CARD:
-                topUpDebitCard(amount, wallet);
-                break;
-            case ONLINE_BANKING:
-                topUpOnlineBanking(amount, wallet);
-                break;
-            case CASH:
-                topUpCash(amount, wallet);
-                break;
-            default:
-                System.out.println("Invalid top-up method.");
-                break;
-        }
+        do {
+            topUpMethod = selectTopUpMethod(scanner);
+
+            switch (topUpMethod) {
+                case CREDIT_CARD:
+                    topUpCreditCard(amount, wallet);
+                    break;
+                case DEBIT_CARD:
+                    topUpDebitCard(amount, wallet);
+                    break;
+                case ONLINE_BANKING:
+                    topUpOnlineBanking(amount, wallet);
+                    break;
+                case CASH:
+                    topUpCash(amount, wallet);
+                    break;
+                default:
+                    System.out.println("Invalid top-up method. Please try again.");
+                    break;
+            }
+        } while (topUpMethod == null);
     }
 
     private static Transactions.TopUpMethod selectTopUpMethod(Scanner scanner) {
@@ -73,7 +77,10 @@ public class Main {
         System.out.println("3. Online Banking");
         System.out.println("4. Cash");
 
+        System.out.println();
+        System.out.print("Enter your choice: ");
         int choice = scanner.nextInt();
+        System.out.println();
 
         switch (choice) {
             case 1:
@@ -122,6 +129,7 @@ public class Main {
     private static void makePayment(Scanner scanner, eWallet wallet) {
         System.out.print("Enter the amount to pay: ");
         double amount = scanner.nextDouble();
+        System.out.println();
 
         Transactions newTransaction = new Transactions(0, amount, Transactions.TopUpMethod.CASH);
         wallet.addTransaction(newTransaction);
@@ -130,10 +138,15 @@ public class Main {
         System.out.println("Payment made successfully.");
     }
 
-    private static void displayMonthlyTransactions(eWallet wallet) {
+    private static void displayAndCalculateEverything(eWallet wallet) {
+        double remainingAmount = wallet.getTotalBalance();
+
         System.out.println("\nMonthly Transactions:");
         for (Transactions transaction : wallet.getMonthlyTransactions()) {
+            remainingAmount -= transaction.getPayment();
             System.out.println(transaction);
         }
+
+        System.out.println("\nTotal Balance: RM " + wallet.getTotalBalance());
     }
 }
