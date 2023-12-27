@@ -2,36 +2,51 @@ import java.util.Date;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 
-public class Transactions{
-    private double balance;                             // 2. Initialize variables by Q  
+public class Transactions {
+    public enum TopUpMethod {
+        CREDIT_CARD, DEBIT_CARD, ONLINE_BANKING, CASH;
+    }
+
+    private double balance;
     private double payment;
     private Date transactionDate;
     private double remainingAmount;
+    private TopUpMethod topUpMethod;
 
-    public Transaction(double balance, double payment) {    // 2. Constructor by Q
+    public Transactions(double balance, double payment, TopUpMethod topUpMethod) {
         this.balance = balance;
         this.payment = payment;
         this.transactionDate = new Date();
         this.remainingAmount = balance - payment;
+        this.topUpMethod = topUpMethod;
+
+        // Apply cashback for Credit Card top-ups
+        if (topUpMethod == TopUpMethod.CREDIT_CARD) {
+            this.remainingAmount += 0.50; // RM 0.50 cashback
+        }
     }
 
-    public double getBalance() {                        // 2. Get balance by Q
+    public double getBalance() {
         return balance;
     }
-    
-    public double getPayment() {                        // 2. Get payment by Q
+
+    public double getPayment() {
         return payment;
     }
 
-    public double getRemainingAmount() {                // 2. Get remaining amount by Q
+    public double getRemainingAmount() {
         return remainingAmount;
     }
 
-    public Date gettransactionDate() {                  // 2. Get transaction date by Q
+    public Date getTransactionDate() {
         return transactionDate;
     }
 
-    public double calculateDiscount() {                 // 3. Calculate discount by Syahmi
+    public TopUpMethod getTopUpMethod() {
+        return topUpMethod;
+    }
+
+    public double calculateDiscount() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(transactionDate);
 
@@ -42,5 +57,15 @@ public class Transactions{
         } else {
             return 0;
         }
+    }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return "Transaction on " + dateFormat.format(transactionDate) +
+                ": Balance=" + balance +
+                ", Payment=" + payment +
+                ", Remaining Amount=" + remainingAmount +
+                ", Top-Up Method=" + topUpMethod;
     }
 }
