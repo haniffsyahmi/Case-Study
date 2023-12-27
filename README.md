@@ -11,4 +11,4 @@ Group : Itnan
 
 The e-Wallet Management System is a digital financial platform designed to facilitate secure and user-friendly transactions. Users can perform top-ups through various methods, including credit cards that offer cashback incentives. Payments are recorded with detailed transaction data, such as date, amount, and remaining balance. The system incentivizes off-peak usage with discounts and provides monthly transaction reports summarizing users' financial activities. Utilizing encapsulation for data protection and ArrayLists for efficient data management, the system ensures a comprehensive and efficient e-Wallet experience.
 
-![Alt text](C:/Users/user/Downloads/OOP/UML diagram.jpg)
+![Alt text](UML diagram.jpg)
