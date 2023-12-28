@@ -17,12 +17,12 @@ The e-Wallet Management System is a digital financial platform designed to facil
 
 
 ### Main Menu
-![main](Example/Annotation 2023-12-28 113503.png)
+![main](https://github.com/haniffsyahmi/Case-Study/Example/Annotation 2023-12-28 113503.png)
 
 
 ### Method Choosing
-![method]()
+![method](https://github.com/haniffsyahmi/Case-Study/Example/Annotation 2023-12-28 113526.png)
 
 
 ### Recorded Transactions
-![example]()
+![example](https://github.com/haniffsyahmi/Case-Study/Example/Annotation 2023-12-28 113618.png)
